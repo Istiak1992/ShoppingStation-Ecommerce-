@@ -1,0 +1,74 @@
+{% load static %}
+
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-success">
+  <div class="container-fluid">
+    <img src="/media/photos/logo_mart.png" height="80px; width:80px;" style="float: left;">
+    <a class="navbar-brand" href="{% url 'homePage' %}" style="color: white; font-size: 30px; text-shadow: 2px 2px 4px #000000;"><i><b>M</b>angrove</i></a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'homePage' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Link
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled">Link</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav mr-auto">
+        {% if user.is_authenticated %}
+
+      
+       
+        <li class="nav-item">
+          <a class="nav-link" href="#">Welcome <b> {{user.username}} </b> </a>
+        </li>
+
+         <li class="nav-item">
+          <a class="nav-link" href="/logout/">Logout</a>
+        </li>
+
+        {% else %}
+
+        <li class="nav-item">
+          <a class="nav-link" href="/register/">Signup</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/login/">Login</a>
+        </li>
+
+        {% endif %}
+      </ul>
+       <div style="margin-right: 30px;">
+       <a href="{% url 'viewCart' %}"><img src="/media/photos/cart.png" style="width: 50px; height: 50px; margin-right: 15%;"></a>
+    </div>
+      <form class="d-flex" action="{% url 'search' %}" method="POST" >
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Search" name="name" aria-label="Search">
+        <button class="btn btn-outline-light" type="submit">Search</button>
+      </form>
+
+    </div>
+  </div>
+</nav>
+
+
+
+    

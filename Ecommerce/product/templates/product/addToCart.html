@@ -1,0 +1,81 @@
+{% extends 'product/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style type="text/css">
+	.container_shoppingcart{
+		width: 100%;
+		float: left;
+		margin-top: 130px;
+	}
+
+	.container_cart{
+		width: 60%;
+		float: left;
+		text-align: center;
+		padding: 20px;
+	}
+
+	.container_checkout{
+		width: 30%;
+		float: left;
+		text-align: center;
+		padding: 20px;
+	}
+
+	.add_position{
+		width: 100%;
+		float: left;
+		background-color: grey;
+		color: white;
+		height: 20%;
+	}
+</style>
+{{message_cart}}
+<div class="container_shoppingcart">
+	<div class="container_cart">
+		<h3 style="text-shadow: 2px 2px 4px #000000;"> Your Shopping Cart </h3>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>SN</th>
+					<th>Product</th>
+					<th>Unit Price</th>
+					<th>Quantity</th>
+					<th>Subtotal</th>
+					<th>Action</th>
+				</tr>
+				
+			</thead>
+			<tbody>
+				{% for item in cart_obj.cartproduct_set.all %}
+				<tr>
+					<td>{{forloop.counter}}</td>
+					<td>{{item.product.name}}</td>
+					<td>{{item.rate}}</td>
+					<td>{{item.quantity}}</td>
+					<td>{{item.subtotal}}</td>
+					<td>
+						<a href="{% url 'managecart' item.id %}?action=inc" class="btn btn-primary"><b>+</b></a>
+						<a href="{% url 'managecart' item.id %}?action=dec" class="btn btn-warning"><b>-</b></a>
+						<a href="{% url 'managecart' item.id %}?action=rmv" class="btn btn-danger"><b>x</b></a>
+					</td>
+				</tr>
+				{% endfor %}
+				<th colspan="4" class="text-right">Total </th>
+				<th>{{cart_obj.total}} <b>BDT</b><th>
+			</tbody>
+
+		</table>
+		
+	</div>
+	<div class="container_checkout">
+		<div class="add_position">Add Position</div>
+		<a href="{% url 'checkout' cart_obj.id %} " class="btn btn-warning" style="margin-top: 60px; width: 100%;">Proceed to Checkout</a>
+		
+	</div>
+</div>
+
+{% endblock %}
+
